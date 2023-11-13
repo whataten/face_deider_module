@@ -16,13 +16,12 @@ rightBottomY        = sys.argv[6]
 preprocessingModel  = YOLO('/root/face_deider/model_weight.pt')
 postprocessingModel = YOLO('/root/face_deider/model_weight.pt')
 
-IN_PATH      = '/root/face_deider/in/'
-OUT_PATH     = '/root/face_deider/out/'
+PATH      = '/root/face_deider/work_bench/'
 
 selectedPosX = int((leftTopX + rightBottomX) / 2)
 selectedPosY = int((leftTopY + rightBottomY) / 2)
 
-path         = IN_PATH + fileName
+path         = PATH + fileName
 
 cap          = cv2.VideoCapture(path)
 fps          = cap.get(cv2.CAP_PROP_FPS)
@@ -117,7 +116,7 @@ height, width, _ = cvtdFrames[0].shape
 
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 
-out = cv2.VideoWriter(OUT_PATH + fileName, fourcc, fps, (width, height))
+out = cv2.VideoWriter(PATH + fileName, fourcc, fps, (width, height))
 
 for scene in cvtdFrames:
     out.write(scene)
