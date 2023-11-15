@@ -1,8 +1,10 @@
+import os
 import sys
 import cv2
 from ultralytics import YOLO
 import math
 import torch
+import boto3
 
 # 인수 전달
 fileName            = sys.argv[1]
@@ -128,3 +130,22 @@ for scene in cvtdFrames:
     out.write(scene)
 
 out.release()
+
+# S3 업로드
+BUCKET = 'deider-bucket'
+auth_file = open('/root/face_deider/auth.txt', 'r')
+auth = auth_file.readlines()
+
+access_key_id = auth[0]
+secret_access_key = auth[1]
+
+s3 = boto3.client('s3', aws_access_key_id=access_key_id, aws_secret_access_key=secret_access_key)
+response = s3.upload_file(PATH+fileName, BUCKET, 'videos/' + fileName)
+
+if response:
+    try:
+        os.remove(PATH+fileName)
+    except OSError as e:
+        pass
+    presigned_url = s3.generate_presigned_url('get_object', Params={'Bucket': BUCKET, 'Key': 'videos/' + fileName}, ExpiresIn=300)
+    print(presigned_url)

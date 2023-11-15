@@ -38,6 +38,7 @@ app.post('/upload', uploadMiddleware, (req, res) => {
     
     result.stdout.on('presigned_url', (presigned_url) => {
         console.log("finished!!")
+        res.redirect(presigned_url)
     });
     
     result.stderr.on('data', function(data) {
