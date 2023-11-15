@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+#container {
+    margin: 0 auto;
+    width: 100%;
+}
+
+/*********************************/
+/* 헤더 영역 - 로고와 내비게이션 */
+/*********************************/
+
+header {
+    width: 100%;
+    height: 100px;
+    background-color: darkgrey;
+}
+
+#logo {
+    float: left;
+    width: 250px;
+    height: 100px;
+    line-height: 100px;
+    padding-left: 20px;
+}
+
+#logo h1 {
+    font-family: 'Merienda', cursive;
+    font-weight: 700;
+    font-size: 40px;
+    color: rgb(0, 0, 0);
+    text-shadow: 0 -1px 0 #222;
+}
+
+#topMenu {
+    height: 100px;
+}
+
+#topMenu>li {
+    float: left;
+    position: relative;
+    margin-top: 15px;
+}
+
+#topMenu>li>a {
+    display: block;
+    color: #000;
+    font-weight: 600;
+    text-shadow: 0 1px darkgrey;
+    padding: 20px 60px;
+}
+
+#topMenu>li>a:hover {
+    color: white;
+    text-shadow: 0-1px darkgrey;
+}
+
+#contents {
+    width: 100%;
+    height: 600px;
+    margin-top: 20px;
+}
+
+#links {
+    float: left;
+    width: 1200px;
+    height: 50%;
+}
+
+#links ul {
+    padding: 0;
+    overflow: hidden;
+}
+
+#links ul li {
+    float: left;
+    width: 50%;
+    text-align: center;
+    margin: 10px 0;
+}
+
+#links ul li a {
+    position: relative;
+    left: 50%;
+    margin: 0 auto;
+}
+
+#links ul li a span {
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    border: 1px solid #000;
+    line-height: 150px;
+}
+
+#deid-icon {
+    background-image: url('../img/deid-icon.jfif');
+    background-size: cover;
+}
+
+#edit-icon {
+    background-image: url('../img/edit-icon.png');
+    background-size: cover;
+}
+
+#links ul li a p {
+    margin-top: 15px;
+    font-weight: 600;
+    color: #222;
+}
+
+#explanation p {
+    margin-top: 15px;
+    font-weight: 300;
+    font-size: 25px;
+}
+
+@media(max-width: 767px) {
+    /* 모바일*/
+
+    #contents {
+        width: 100%;
+        height: 75%;
+        margin-top: 20px;
+    }
+
+    #links ul li a span {
+        display: block;
+        margin: 0 auto;
+        width: 90px;
+        height: 90px;
+        border-radius: 100%;
+        border: 1px solid #000;
+        line-height: 150px;
+    }
+
+    #links {
+        float: left;
+        width: 100%;
+        height: 50%;
+    }
+
+    #explanation p {
+        margin-top: 15px;
+        margin-left: 5px;
+        font-weight: 300;
+        font-size: 1em;
+    }
+
+    #logo {
+        float: left;
+        width: 31%;
+        height: 100px;
+        line-height: 100px;
+        padding-left: 20px;
+    }
+
+    #logo h1 {
+        font-family: 'Merienda', cursive;
+        font-weight: 33%;
+        font-size: 1.5em;
+        color: rgb(0, 0, 0);
+        text-shadow: 0 -1px 0 #222;
+    }
+
+    #topMenu>li {
+        float: left;
+        position: relative;
+        margin-top: 30px;
+        padding-left: 5%;
+    }
+
+    #topMenu>li>a {
+        display: block;
+        color: #000;
+        font-weight: 600;
+        text-shadow: 0 1px darkgrey;
+        padding: 5px 10px;
+        font-size: 0.9em;
+    }
+}
+
+@media(min-width:768px) and (max-width: 991px) {
+    /*테블릿 세로*/
+
+    #contents {
+        width: 100%;
+        height: 75%;
+        margin-top: 20px;
+    }
+
+
+    #links {
+        float: left;
+        width: 100%;
+        height: 50%;
+    }
+
+    #explanation h1 {
+        margin-left: 10px;
+    }
+
+    #explanation p {
+        margin-top: 15px;
+        margin-left: 5px;
+        font-weight: 300;
+        font-size: 1em;
+    }
+}
+
+@media(min-width:992px) and (max-width: 1199px) {
+    /*테블릿 가로*/
+
+    #contents {
+        width: 100%;
+        height: 75%;
+        margin-top: 20px;
+    }
+
+    #links {
+        float: left;
+        width: 100%;
+        height: 50%;
+    }
+
+    #explanation h1 {
+        margin-left: 10px;
+    }
+}
+
+@media (min-width:1200px) {
+    #container {
+        margin: 0 auto;
+        width: 1200px;
+    }
+}

@@ -1,7 +1,7 @@
 # Face Deider
 
-+ ***Face Deider is face de-idenfication service module.***
-+ ***This repository can be used to create docker files.***
++ **Face Deider is face de-idenfication service module.**
++ **This repository can be used to create docker files.**
 
 ### Contact
 
@@ -13,7 +13,7 @@
 **23/09/05** de-identificate all faces without selected face on loaded video  
 **23/11/08** de-identificate all faces without selected face in selected frame on loaded video  
 **23/11/08** transfer to this repository  
-**23/11/13** add web service  
+**23/11/13** add html based web service
 
 ***
 
@@ -29,8 +29,11 @@ npm install -g npm@latest
 npm init
 npm install -g express --save
 npm install -g multer --save
-npm install -g uuid --save
 npm install -g child_process --save
+pip install boto3
+curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt-get install -y nodejs
+npm install uuid
 ```
 
 ### Docker

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/deid.css">
+    <style>
+        .hide-fullscreen-button::-webkit-media-controls-fullscreen-button {
+            display: none !important;
+        }
+
+        .hide-fullscreen-button::-webkit-media-controls-enclosure {
+            overflow: hidden !important;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <header>
+            <div id="logo">
+                <a href="home.html">
+                    <h1>MOJA</h1>
+                </a>
+            </div>
+            <ul id="topMenu">
+                <li><a href="deid.html">동영상 얼굴 비식별화</a></li>
+            </ul>
+        </header>
+        <div id="contents">
+            <div id="moj">
+                <h1>동영상 얼굴 비식별화</h1>
+            </div>
+            <CENTER>
+                <div id="videoC">
+                    <video controls id="videoPlayer" class="hide-fullscreen-button" controls>
+                    </video>
+                    <canvas id="canvas"></canvas>
+                </div>
+            </CENTER>
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <CENTER>
+                    <div id="buttons">
+                        <label for="videoFileInput" id="browseVideos">동영상 선택</label>
+                        <input type="file" name="video_file" id="videoFileInput" accept="video/*">
+
+                        <button type="submit" id="next" onclick="checkData(event)">비식별화 시작</button>
+
+                        <label for="videoCheck" id="selectFace">제외 대상 선택</label>
+
+                        <input type="hidden" name="leftTopX" id="leftTopX" value="">
+                        <input type="hidden" name="leftTopY" id="leftTopY" value="">
+                        <input type="hidden" name="rightBottomX" id="rightBottomX" value="">
+                        <input type="hidden" name="rightBottomY" id="rightBottomY" value="">
+                        <input type="hidden" name="frameNum" id="frameNum" value="">
+                    </div>
+                </CENTER>
+            </form>
+        </div>
+        <div id="noFileModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeMyPopup">&times;</span>
+                <p>업로드된 파일이 없습니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isDragging = false;
+        var startX, startY, endX, endY;
+        var canvas_context;
+        var canvas_pos_x;
+        var canvas_pos_y;
+
+        function checkData(event) {
+            var inputData = document.getElementById("videoFileInput").value;
+
+            if (inputData == "") {
+                document.getElementById("noFileModal").style.display = "block";
+                event.preventDefault();
+            } else {
+                document.forms["uploadForm"].submit();
+            }
+        }
+
+        const videoInput = document.getElementById('videoFileInput');
+        const video = document.getElementById('videoPlayer');
+        const canvas = document.getElementById('canvas');
+        const currentTimeElement = document.getElementById('currentTime');
+        const frameNumberElement = document.getElementById('frameNumber');
+        let frameRate;
+
+        video.addEventListener('timeupdate', function () {
+            currentTimeElement.textContent = video.currentTime.toFixed(3);
+        });
+
+        canvas.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            document.getElementById('leftTopX').value = e.offsetX / video.offsetWidth;
+            document.getElementById('leftTopY').value = e.offsetY / video.offsetHeight;
+
+            startX = parseInt(e.clientX - canvas_pos_x);
+            startY = parseInt(e.clientY - canvas_pos_y);
+        });
+
+        canvas.addEventListener('mouseup', (e) => {
+            if (!isDragging) return;
+            document.getElementById('rightBottomX').value = e.offsetX / video.offsetWidth;
+            document.getElementById('rightBottomY').value = e.offsetY / video.offsetHeight;
+
+            frameRate = getVideoFPS(video);
+
+            const currentTimeInSeconds = video.currentTime;
+            document.getElementById('frameNum').value = Math.floor(currentTimeInSeconds * frameRate * 1000);
+
+            isDragging = false;
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                endX = parseInt(e.clientX - canvas_pos_x);
+                endY = parseInt(e.clientY - canvas_pos_y);
+                canvas_context.clearRect(0, 0, canvas.width, canvas.height);
+                canvas_context.strokeRect(startX, startY, endX - startX, endY - startY);
+            }
+        });
+
+        videoInput.addEventListener('change', function () {
+            const file = videoInput.files[0];
+            if (file) {
+                const objectURL = URL.createObjectURL(file);
+                video.src = objectURL;
+            } else {
+                video.src = '';
+            }
+        });
+
+        document.getElementById("closeMyPopup").addEventListener("click", function () {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        });
+
+        document.getElementById("selectFace").onclick = function () {
+            var inputData = document.getElementById("videoFileInput").value;
+
+            if (inputData === "") {
+                document.getElementById("myModal").style.display = "block";
+                event.preventDefault();
+            } else {
+                const rect = video.getBoundingClientRect();
+                canvas.style.top = rect.top + window.scrollY;
+                canvas.style.left = rect.left + window.scrollX;
+                canvas.width = video.offsetWidth;
+                canvas.height = video.offsetHeight - 60;
+                canvas_pos_x = rect.left + window.scrollX;
+                canvas_pos_y = rect.top + window.scrollY;
+                canvas_context = canvas.getContext('2d');
+                canvas_context.lineWidth = 3;
+                canvas_context.strokeStyle = "#ff0000";
+                canvas.style.display = "block";
+                video.pause();
+            }
+        };
+
+        function getVideoFPS(videoElement) {
+            const videoTrack = videoElement.captureStream().getVideoTracks()[0];
+
+            if (videoTrack) {
+                const settings = videoTrack.getSettings();
+                const frameRate = settings.frameRate;
+                return frameRate;
+            } else {
+                console.log("FPS 미지원 코덱")
+            }
+        };
+    </script>
+</body>
+
+</html>

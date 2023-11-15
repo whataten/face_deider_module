@@ -18,8 +18,10 @@ postprocessingModel = YOLO('/root/face_deider/model_weight.pt')
 
 PATH      = '/root/face_deider/work_bench/'
 
-selectedPosX = int((leftTopX + rightBottomX) / 2)
-selectedPosY = int((leftTopY + rightBottomY) / 2)
+ratioX = (float(leftTopX) + float(rightBottomX)) / 2
+ratioY = (float(leftTopY) + float(rightBottomY)) / 2
+
+init         = True
 
 path         = PATH + fileName
 
@@ -38,6 +40,11 @@ origFrames   = []
 while cap.isOpened():
     success, frame = cap.read()
     
+    if init:
+        init = False
+        pos_x = len(frame[0]) * ratioX
+        pos_y = len(frame) * ratioY
+    
     if success:
         frameNum += 1
         origFrames.append(frame)
@@ -49,8 +56,7 @@ while cap.isOpened():
             
             for box, trackID in zip(boxes, trackIDs):
                 x, y, _, _ = box
-                    
-                distance = math.sqrt((selectedPosX - x)**2 + (selectedPosY - y)**2)
+                distance = math.sqrt((pos_x - x)**2 + (pos_y - y)**2)
 
                 if distance < bowl[1]:
                     bowl[0] = trackID

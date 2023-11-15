@@ -1,0 +1,286 @@
+@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+#container {
+    margin: 0 auto;
+    width: 100%;
+}
+
+/*********************************/
+/* 헤더 영역 - 로고와 내비게이션 */
+/*********************************/
+
+header {
+    width: 100%;
+    height: 100px;
+    background-color: darkgrey;
+}
+
+#logo {
+    float: left;
+    width: 250px;
+    height: 100px;
+    line-height: 100px;
+    padding-left: 20px;
+}
+
+#logo h1 {
+    font-family: 'Merienda', cursive;
+    font-weight: 700;
+    font-size: 40px;
+    color: rgb(0, 0, 0);
+    text-shadow: 0 -1px 0 #222;
+}
+
+#topMenu {
+    height: 100px;
+}
+
+#topMenu>li {
+    float: left;
+    position: relative;
+    margin-top: 15px;
+}
+
+#topMenu>li>a {
+    display: block;
+    color: #000;
+    font-weight: 600;
+    text-shadow: 0 1px darkgrey;
+    padding: 20px 60px;
+}
+
+#topMenu>li>a:hover {
+    color: white;
+    text-shadow: 0-1px darkgrey;
+}
+
+#contents {
+    width: 100%;
+    height: 600px;
+    margin-top: 20px;
+    background-color: #eee;
+}
+
+#moj>h1 {
+    margin-left: 15px;
+}
+
+#videoC {
+    width: 75%;
+    height: 450px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#buttons {
+    margin-top: 30px;
+    width: 100%;
+    height: 120px;
+    align-items: center;
+}
+
+#videoFileInput {
+    display: none;
+}
+
+#selectFace {
+    margin-left: 15px;
+    margin-right: 10px;
+    padding: 10px 10px;
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 120%;
+}
+
+#browseVideos {
+    margin-left: 15px;
+    margin-right: 10px;
+    padding: 10px 10px;
+    background-color: #e5ff00;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 120%;
+}
+
+#buttons button {
+    margin-left: 15px;
+    margin-right: 10px;
+    padding: 10px 10px;
+    background-color: #0bffff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 120%;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#canvas {
+    cursor: crosshair;
+    position: absolute;
+    z-index: 2;
+    display: none;
+}
+
+
+
+@media(max-width: 767px) {
+
+    /* 모바일*/
+    #contents {
+        width: 100%;
+        height: 75%;
+        margin-top: 20px;
+        background-color: #eee;
+    }
+
+    #videoC {
+        width: 75%;
+        height: 75%;
+        margin-top: 20px;
+        justify-content: center;
+    }
+
+    #videoPlayer {
+        width: 100%;
+        height: 75%;
+        z-index: 1;
+    }
+
+    #moj>h1 {
+        margin-left: 15px;
+        font-size: 1.5em;
+    }
+
+    #logo {
+        float: left;
+        width: 31%;
+        height: 100px;
+        line-height: 100px;
+        padding-left: 20px;
+    }
+
+    #logo h1 {
+        font-family: 'Merienda', cursive;
+        font-weight: 33%;
+        font-size: 1.5em;
+        color: blueviolet;
+        text-shadow: 0 -1px 0 #222;
+    }
+
+    #topMenu>li {
+        float: left;
+        position: relative;
+        margin-top: 30px;
+        padding-left: 5%;
+    }
+
+    #topMenu>li>a {
+        display: block;
+        color: #000;
+        font-weight: 600;
+        text-shadow: 0 1px darkgrey;
+        padding: 5px 10px;
+        font-size: 0.9em;
+    }
+}
+
+@media(min-width:768px) and (max-width: 991px) {
+
+    /*테블릿 세로*/
+    #contents {
+        width: 100%;
+        height: 75%;
+        margin-top: 20px;
+        background-color: #eee;
+    }
+
+    #videoC {
+        width: 75%;
+        height: 75%;
+        margin-top: 20px;
+        justify-content: center;
+    }
+
+    #videoPlayer {
+        width: 100%;
+        height: 75%;
+        z-index: 1;
+    }
+}
+
+@media(min-width:992px) and (max-width: 1199px) {
+
+    /*테블릿 가로*/
+    #contents {
+        width: 100%;
+        height: 75%;
+        margin-top: 20px;
+        background-color: #eee;
+    }
+
+    #videoC {
+        width: 75%;
+        height: 75%;
+        margin-top: 20px;
+        justify-content: center;
+    }
+
+    #videoPlayer {
+        width: 100%;
+        height: 75%;
+        z-index: 1;
+    }
+}
+
+@media (min-width:1200px) {
+    #container {
+        margin: 0 auto;
+        width: 1200px;
+    }
+}
