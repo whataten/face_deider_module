@@ -34,11 +34,11 @@ app.post('/upload', uploadMiddleware, (req, res) => {
     const rightBottomX = req.body.rightBottomX;
     const rightBottomY = req.body.rightBottomY;
 
-    const result = spawn('python3', ['/root/face_deider/face_deider.py', fileName, frameNum, leftTopX, leftTopY, rightBottomX, rightBottomY]);
+    const result = spawn('python3', ['/home/ubuntu/face_deider/face_deider.py', fileName, frameNum, leftTopX, leftTopY, rightBottomX, rightBottomY]);
     
-    result.stdout.on('presigned_url', (presigned_url) => {
+    result.stdout.on('data', (data) => {
         console.log("finished!!")
-        res.redirect(presigned_url)
+        res.redirect(data)
     });
     
     result.stderr.on('data', function(data) {

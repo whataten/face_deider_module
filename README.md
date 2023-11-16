@@ -25,15 +25,6 @@
 ``` shell
 apt install nodejs
 apt install npm
-npm install -g npm@latest
-npm init
-npm install -g express --save
-npm install -g multer --save
-npm install -g child_process --save
-pip install boto3
-curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-sudo apt-get install -y nodejs
-npm install uuid
 ```
 
 ### Docker
@@ -58,6 +49,8 @@ apt install python3.10
 apt install python3-pip  
 pip3 install opencv-python==4.8.1.78  
 pip3 install ultralytics==8.0.207  
+pip install boto3==
+pip install lapx
 ```
 
 ### Specifics
