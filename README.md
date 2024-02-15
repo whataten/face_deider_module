@@ -3,6 +3,8 @@
 + **Face Deider is face de-idenfication service module.**
 + **This repository can be used to create docker files.**
 
+![시연](./assets/deid.gif)
+
 ### Contact
 
 **tiktaalik135462@gmail.com**  
@@ -29,7 +31,7 @@ apt install npm
 
 ### Docker
 
-+ [Image](https://hub.docker.com/repository/docker/whataten/face_deider/general)  
++ [https://hub.docker.com/r/whataten/face_deider/](https://hub.docker.com/r/whataten/face_deider/tags)  
 
 *In running docker container, It **should** be mounted correct directories*  
 **/root/face_deider/in** : location that original videos uploaded at  
@@ -40,8 +42,6 @@ python face_deider video_file_name frame left_top_pos_x left_top_pos_y right_ bo
 ```
 
 *settings*  
-base docker image : [ubuntu:20.04](https://hub.docker.com/_/ubuntu)  
-
 ``` shell
 apt install software-properties-common  
 add-apt-repository ppa:deadsnakes/ppa  
